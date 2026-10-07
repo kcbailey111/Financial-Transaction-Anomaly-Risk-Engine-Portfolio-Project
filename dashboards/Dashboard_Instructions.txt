@@ -1,0 +1,3 @@
+Probably will transfer some of your data or metrics to PowerBI, but I recommend you do some dashboards in Tableau as well.
+
+When you are including this on your resume ensure you add metrics to what you discovered and the story you can tell from it.
