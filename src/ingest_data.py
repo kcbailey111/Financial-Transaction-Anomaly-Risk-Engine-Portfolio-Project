@@ -7,8 +7,8 @@ from sqlalchemy import create_engine, inspect
 # -------------------------------------------------------------------
 # CONFIGURATION & CONSTANTS
 # -------------------------------------------------------------------
-# Keeping file paths centralized makes your code easy to update later.
-RAW_DATA_PATH = os.path.join("data", "raw", "transactions.csv")
+# Paths to raw data and SQLite database
+RAW_DATA_PATH = os.path.join("data", "raw", "cards_data.csv")
 DB_PATH = os.path.join("data", "financial_warehouse.db")
 TABLE_NAME = "raw_transactions"
 
