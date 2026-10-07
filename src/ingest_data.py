@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import pandas as pd
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine, inspect, text 
 
 # -------------------------------------------------------------------
 # CONFIGURATION & CONSTANTS
@@ -69,7 +69,7 @@ def run_ingestion():
     inspector = inspect(engine)
     if TABLE_NAME in inspector.get_table_names():
         with engine.connect() as conn:
-            result = conn.execute(f"SELECT COUNT(*) FROM {TABLE_NAME}").fetchone()
+            result = conn.execute(text(f"SELECT COUNT(*) FROM {TABLE_NAME}")).fetchone()
             db_row_count = result[0]
             
         print(f"📊 Verified Row Count in DB: {db_row_count:,} rows.")
