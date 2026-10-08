@@ -27,7 +27,7 @@ def run_ingestion():
         sys.exit(1)
 
     # 2. EXTRACT: Read raw CSV into memory using pandas
-    print(f"📥 Reading raw data from: {RAW_DATA_PATH}...")
+    print(f"Reading raw data from: {RAW_DATA_PATH}...")
     try:
         df = pd.read_csv(RAW_DATA_PATH)
         row_count, col_count = df.shape
@@ -38,17 +38,17 @@ def run_ingestion():
 
     # 3. SANITIZATION: Clean column names (strip whitespace, lowercase, replace spaces with _)
     df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
-    print("\n📋 Sanitized Column Headers:")
+    print("\n Sanitized Column Headers:")
     print(list(df.columns))
 
     # 4. LOAD: Initialize SQLite Database Connection via SQLAlchemy
     # 'sqlite:///' specifies the SQLite driver and relative file path
     db_url = f"sqlite:///{DB_PATH}"
-    print(f"\n🔌 Connecting to SQLite database at: {DB_PATH}...")
+    print(f"\n Connecting to SQLite database at: {DB_PATH}...")
     engine = create_engine(db_url, echo=False)
 
     # 5. WRITE: Load DataFrame into SQLite staging table
-    print(f"💾 Writing records to staging table '{TABLE_NAME}'...")
+    print(f"Writing records to staging table '{TABLE_NAME}'...")
     try:
         # if_exists='replace' drops the old staging table if it exists and rebuilds it.
         # chunksize=50000 ensures memory efficiency if handling large datasets.
