@@ -15,14 +15,14 @@ TABLE_NAME = "raw_transactions"
 
 def run_ingestion():
     print("=" * 60)
-    print("🚀 STARTING FINANCIAL DATA INGESTION PIPELINE")
+    print("STARTING FINANCIAL DATA INGESTION PIPELINE")
     print("=" * 60)
 
     start_time = time.time()
 
     # 1. VALIDATION: Check if raw dataset exists before proceeding
     if not os.path.exists(RAW_DATA_PATH):
-        print(f"❌ ERROR: Raw CSV file not found at '{RAW_DATA_PATH}'.")
+        print(f"ERROR: Raw CSV file not found at '{RAW_DATA_PATH}'.")
         print("   Please place your CSV inside 'data/raw/' and try again.")
         sys.exit(1)
 
@@ -31,9 +31,9 @@ def run_ingestion():
     try:
         df = pd.read_csv(RAW_DATA_PATH)
         row_count, col_count = df.shape
-        print(f"✅ Successfully loaded raw dataset ({row_count:,} rows, {col_count} columns).")
+        print(f"Successfully loaded raw dataset ({row_count:,} rows, {col_count} columns).")
     except Exception as e:
-        print(f"❌ ERROR: Failed to read CSV file: {e}")
+        print(f"ERROR: Failed to read CSV file: {e}")
         sys.exit(1)
 
     # 3. SANITIZATION: Clean column names (strip whitespace, lowercase, replace spaces with _)
@@ -61,7 +61,7 @@ def run_ingestion():
         )
         print("✅ Data successfully written to database!")
     except Exception as e:
-        print(f"❌ ERROR: Database write failed: {e}")
+        print(f"ERROR: Database write failed: {e}")
         sys.exit(1)
 
     # 6. VERIFICATION: Query database directly to confirm row counts match
@@ -72,16 +72,16 @@ def run_ingestion():
             result = conn.execute(text(f"SELECT COUNT(*) FROM {TABLE_NAME}")).fetchone()
             db_row_count = result[0]
             
-        print(f"📊 Verified Row Count in DB: {db_row_count:,} rows.")
+        print(f"Verified Row Count in DB: {db_row_count:,} rows.")
         
         if db_row_count == row_count:
-            print("✨ INTEGRITY CHECK PASSED: Data counts match perfectly!")
+            print("INTEGRITY CHECK PASSED: Data counts match perfectly!")
         else:
-            print("⚠️ WARNING: Row count mismatch between CSV and DB table!")
+            print("WARNING: Row count mismatch between CSV and DB table!")
 
     elapsed_time = round(time.time() - start_time, 2)
     print("\n" + "=" * 60)
-    print(f"🎉 INGESTION PIPELINE COMPLETE IN {elapsed_time} SECONDS")
+    print(f"INGESTION PIPELINE COMPLETE IN {elapsed_time} SECONDS")
     print("=" * 60)
 
 
