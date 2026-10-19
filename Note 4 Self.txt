@@ -1,0 +1,9 @@
+For Setting Up Virtual Environment
+
+python -m venv .my_venv
+
+.my_venv\Scripts\activate.bat
+
+pip install -r requirements.txt
+
+Remember to always place the venv into your .gitignore

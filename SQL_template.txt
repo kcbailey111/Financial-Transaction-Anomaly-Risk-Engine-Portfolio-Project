@@ -1,0 +1,49 @@
+-- ==========================================
+-- 1. CREATE TABLE TEMPLATE
+-- ==========================================
+CREATE TABLE your_table_name (
+    -- Replace 'id' with your unique identifier column
+    id SERIAL PRIMARY KEY,
+    
+    -- Replace these with your actual column names and data types
+    transaction_date DATE,
+    customer_id VARCHAR(50),
+    amount NUMERIC(12, 2),
+    risk_score FLOAT,
+    is_flagged BOOLEAN
+);
+
+-- ==========================================
+-- 2. INSERT TEST DATA TEMPLATE
+-- ==========================================
+INSERT INTO your_table_name (transaction_date, customer_id, amount, risk_score, is_flagged)
+VALUES 
+    ('2026-10-01', 'CUST-1001', 1250.50, 0.15, FALSE),
+    ('2026-10-02', 'CUST-1002', 9850.00, 0.89, TRUE),
+    ('2026-10-03', 'CUST-1003', 450.00, 0.05, FALSE),
+    ('2026-10-04', 'CUST-1004', 15000.00, 0.95, TRUE);
+
+-- ==========================================
+-- 3. ANALYSIS & QUERY TEMPLATES
+-- ==========================================
+
+-- View all records in your table
+SELECT * FROM your_table_name;
+
+-- Filter for high-risk or flagged anomalies (common for a risk engine project)
+SELECT 
+    customer_id,
+    amount,
+    risk_score
+FROM your_table_name
+WHERE is_flagged = TRUE
+ORDER BY amount DESC;
+
+-- Aggregate data to get totals and averages by flag status
+SELECT 
+    is_flagged,
+    COUNT(*) AS total_transactions,
+    SUM(amount) AS total_amount,
+    ROUND(AVG(risk_score)::numeric, 2) AS average_risk_score
+FROM your_table_name
+GROUP BY is_flagged;
