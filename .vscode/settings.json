@@ -1,5 +1,13 @@
 {
+    "sqltools.useNodeRuntime": true,
     "sqltools.connections": [
+        {
+            "name": "FinancialWarehouse",
+            "driver": "SQLite",
+            "database": "./data/financial_warehouse.db",
+            "connectionTimeout": 15,
+            "previewLimit": 50
+        },
         {
             "ssh": "Disabled",
             "previewLimit": 50,
